@@ -33,4 +33,8 @@ public class Array<T extends Comparable<T>> implements IArray<T> {
 	public IArray<T> subArray(int from, int toExclusive) {
 		return new Array<T>(Arrays.copyOfRange(array, from, toExclusive));
 	}
+
+	public T[] getArray() {
+		return array;
+	}
 }
