@@ -1,24 +1,23 @@
 package net.htlgrieskirchen.aud.mergesort;
 
+import net.htlgrieskirchen.aud.IArray;
+
 public class Mergesort {
 
     public Mergesort() {
 
     }
 
-    public void sort(Array a) {
-
+    public <T extends Comparable<T>> void sort(IArray<T> a) {
         if(a.size() > 1) {
             // Teilen
-            for(int i = 0; i < (a.size() / 2) -1); i++) {
+            for(int i = 0; i < ((a.size() / 2) -1); i++) {
 
             }
-            Array eins = a.get(); // hälfte finden
+
+            //IArray<T> eins = a.get(); // hälfte finden
         } else {
             //zusammenbauen
         }
-
-
     }
-
 }
