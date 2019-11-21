@@ -13,16 +13,8 @@ public class Mergesort {
         if(a.size() > 1) {
             // Teilen
             int half = a.size() /2;
-            Array<Integer> first = new Array<Integer>(new Integer[half]);
-            Array<Integer> sec = new Array<Integer>(new Integer[half]);
-
-            for(int i = 0; i < (half -1); i++) {
-                first.add(i, (Integer) a.get(i));
-            }
-
-            for(int i = half -1; i < a.size(); i++) {
-                sec.add(i, (Integer) a.get(i));
-            }
+            Array<Integer> first = (Array<Integer>) a.subArray(0, half);
+            Array<Integer> sec = (Array<Integer>) a.subArray(half, a.size()- 1);
 
             sort(first);
             sort(sec);
