@@ -1,6 +1,7 @@
 package net.htlgrieskirchen.aud;
 
 import net.htlgrieskirchen.aud.insertionsort.InsertionSort;
+import net.htlgrieskirchen.aud.mergesort.Mergesort;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -9,12 +10,21 @@ public class App {
     public static void main(String[] args) {
         Integer[] ints = new Random().ints(10, 0, 10).boxed().toArray(Integer[]::new);
 
+        System.out.println("---- Insertion Sort ----");
+
         Array<Integer> array = new Array<>(ints.clone());
         InsertionSort.sort(array);
         Integer[] sorted = array.getArray();
 
         print(sorted, ints);
 
+        System.out.println("---- Merge Sort ----");
+
+        Array<Integer> arr2 = new Array<>(ints.clone());
+        Mergesort.sort(arr2);
+        Integer[] sorted2 = arr2.getArray();
+
+        print(sorted2, ints);
 
     }
 
