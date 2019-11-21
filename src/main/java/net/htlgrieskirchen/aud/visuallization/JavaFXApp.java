@@ -65,7 +65,7 @@ public class JavaFXApp extends Application {
 
 			root.setPadding(new Insets(10));
 
-			root.setLeft(new Button("<-") {{
+			root.setLeft(new Button("<- fuck go back") {{
 				setOnAction(event -> stage.setScene(menuScene));
 			}});
 			root.setBottom(new Label("MERGE SORT MAMA"));

@@ -37,4 +37,23 @@ public class Array<T extends Comparable<T>> implements IArray<T> {
 	public T[] getArray() {
 		return array;
 	}
+
+	public void add(int i, T item) {
+		try{
+			array[i] = item;
+		} catch (IndexOutOfBoundsException e) {
+			System.err.println("Index nicht gefunden!!");
+			e.printStackTrace();
+		}
+	}
+
+	public T get(int i) {
+		try {
+			return array[i];
+		} catch (IndexOutOfBoundsException e) {
+			System.err.println("Index nicht gefunden!!");
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

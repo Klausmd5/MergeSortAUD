@@ -13,6 +13,12 @@ public class App {
         InsertionSort.sort(array);
         Integer[] sorted = array.getArray();
 
+        print(sorted, ints);
+
+
+    }
+
+    public static void print(Integer[] sorted, Integer[] ints) {
         for(int i = 0; i < ints.length; i++) {
             System.out.println(ints[i] + "\t" + sorted[i]);
         }
