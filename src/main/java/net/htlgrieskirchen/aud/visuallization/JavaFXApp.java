@@ -3,6 +3,7 @@ package net.htlgrieskirchen.aud.visuallization;
 import javafx.animation.Transition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,7 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
@@ -121,9 +126,26 @@ public class JavaFXApp extends Application {
 
 			this.sortingThread = new Thread(() -> {
 				InsertionSort.sort(graph.getAdapter());
+				Platform.runLater(() -> {
+					//showFinish();
+				});
 			});
 			this.sortingThread.start();
+
 		}
+
+		public void showFinish() {
+			final Stage dialog = new Stage();
+			dialog.initModality(Modality.NONE);
+			dialog.initOwner(stage);
+			VBox dialogVbox = new VBox(20);
+			dialogVbox.setCenterShape(true);
+			dialogVbox.getChildren().add(new Text("Task failed successfully!"));
+			Scene dialogScene = new Scene(dialogVbox, 300, 200);
+			dialog.setScene(dialogScene);
+			dialog.show();
+		}
+
 	}
 
 	private class BarGraph extends Region {
@@ -218,11 +240,15 @@ public class JavaFXApp extends Application {
 				transitions[1] = transition;
 
 				transitions[0].play();
-				transitions[1].play();
+
 				Collections.swap(rectangles, i, j);
 
 				try {
 					Thread.sleep(((long) stepDuration.toMillis()));
+					transitions[0].stop();
+					transitions[1].play();
+					Thread.sleep(((long) stepDuration.toMillis()));
+					transitions[1].stop();
 				} catch(InterruptedException e) {
 					e.printStackTrace();
 				}
