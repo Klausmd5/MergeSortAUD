@@ -127,7 +127,7 @@ public class JavaFXApp extends Application {
 			this.sortingThread = new Thread(() -> {
 				InsertionSort.sort(graph.getAdapter());
 				Platform.runLater(() -> {
-					//showFinish();
+					showFinish();
 				});
 			});
 			this.sortingThread.start();
@@ -138,11 +138,13 @@ public class JavaFXApp extends Application {
 			final Stage dialog = new Stage();
 			dialog.initModality(Modality.NONE);
 			dialog.initOwner(stage);
-			VBox dialogVbox = new VBox(20);
+			VBox dialogVbox = new VBox(10);
 			dialogVbox.setCenterShape(true);
 			dialogVbox.getChildren().add(new Text("Task failed successfully!"));
-			Scene dialogScene = new Scene(dialogVbox, 300, 200);
+			Scene dialogScene = new Scene(dialogVbox, 300, 150);
 			dialog.setScene(dialogScene);
+			dialog.setTitle("Finished");
+			dialog.centerOnScreen();
 			dialog.show();
 		}
 
