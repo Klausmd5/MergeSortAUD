@@ -1,6 +1,7 @@
 package net.htlgrieskirchen.aud;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class Array<T extends Comparable<T>> implements IArray<T> {
 	private T[] array;
@@ -32,6 +33,11 @@ public class Array<T extends Comparable<T>> implements IArray<T> {
 	@Override
 	public IArray<T> subArray(int from, int toExclusive) {
 		return new Array<T>(Arrays.copyOfRange(array, from, toExclusive));
+	}
+
+	@Override
+	public void append(IArray<T> newArray) {
+		array = (T[]) Stream.concat(Arrays.stream(array),Arrays.stream(((Array<T>) newArray).array)).toArray();
 	}
 
 	public T[] getArray() {

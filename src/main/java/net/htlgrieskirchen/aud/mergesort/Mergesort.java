@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Mergesort {
 
     public static <T extends Comparable<T>> Array<Integer> sort(Array<T> a) {
-
+        
         int half = (a.size() /2);
 
         if(a.size() > 2) {

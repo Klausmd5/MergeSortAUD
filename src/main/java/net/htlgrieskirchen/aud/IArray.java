@@ -8,4 +8,5 @@ public interface IArray<T extends Comparable<T>> {
 	 */
 	public int compare(int i, int j);
 	public IArray<T> subArray(int from, int toExclusive);
+	public void append(IArray<T> array);
 }
