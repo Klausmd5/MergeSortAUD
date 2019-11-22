@@ -9,6 +9,8 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
@@ -79,13 +81,18 @@ public class JavaFXApp extends Application {
 		public BorderPane root;
 
 		private MergeSortScene() {
-			super(new BorderPane(), 400, 300);
+			super(new BorderPane(), 800, 600);
 			root = (BorderPane) getRoot();
 
 			root.setPadding(new Insets(10));
 
 			root.setLeft(new Button("<- fuck go back") {{
 				setOnAction(event -> stage.setScene(menuScene));
+			}});
+
+			root.setCenter(new ImageView(new Image(MergeSortScene.class.getClassLoader().getResourceAsStream("Mergesort.gif"))){{
+				setScaleX(2);
+				setScaleY(2);
 			}});
 
 			BorderPane.setAlignment(root.getLeft(), Pos.TOP_LEFT);
@@ -98,7 +105,7 @@ public class JavaFXApp extends Application {
 		private Thread sortingThread;
 
 		private InsertionSortScene() {
-			super(new BorderPane(), 400, 300);
+			super(new BorderPane(), 800, 600);
 			root = (BorderPane) getRoot();
 
 			root.setPadding(new Insets(10));
