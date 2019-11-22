@@ -133,10 +133,11 @@ public class JavaFXApp extends Application {
 		private int number;
 		private double width;
 		private double height;
+		private boolean running = false;
 
-		private Rectangle2D calculateElementPosition(int i) {
+		private Rectangle2D calculateElementPosition(int i, boolean repeat, int zuf) {
 			double elementWidth = (float) width / number * 0.5;
-			double elementHeight = height / 2;
+			double elementHeight = !repeat ? zuf *2 : rectangles.get(i).getKey().getHeight();
 			double xOffset = (float) ((float) width / number * i + elementWidth * 0.5);
 			double yOffset = (height - elementHeight);
 			return new Rectangle2D(xOffset, yOffset, elementWidth, elementHeight);
@@ -150,8 +151,9 @@ public class JavaFXApp extends Application {
 
 			rectangles = new ArrayList<Pair<Rectangle, Integer>>();
 			for(int i = 0; i < number; i++) {
-				Rectangle2D pos = calculateElementPosition(i);
-				rectangles.add(new Pair<Rectangle, Integer>(new Rectangle(pos.getMinX(), pos.getMinY(), pos.getWidth(), pos.getHeight()), (int) (Math.random() * 100)));
+				int zuf =  (int) (Math.random() * 100);
+				Rectangle2D pos = calculateElementPosition(i, false, zuf);
+				rectangles.add(new Pair<Rectangle, Integer>(new Rectangle(pos.getMinX(), pos.getMinY(), pos.getWidth(), pos.getHeight()), zuf));
 			}
 
 			getChildren().addAll(rectangles.stream().map(Pair::getKey).collect(Collectors.toList()));
@@ -160,7 +162,10 @@ public class JavaFXApp extends Application {
 		@Override
 		public void resize(double width, double height) {
 			super.resize(width, height);
-			drawNew();
+			if(!running) {
+				running = true;
+				drawNew();
+			}
 		}
 
 		private BarGraph(int number, int width, int height) {
@@ -184,8 +189,33 @@ public class JavaFXApp extends Application {
 
 				Transition[] transitions = new Transition[2];
 
-				createTransition(j, iRec, transitions, 0);
-				createTransition(i, jRec, transitions, 1);
+				Rectangle2D newPos1 = calculateElementPosition(j, true, 0);
+				TranslateTransition transition1 = new TranslateTransition(stepDuration, iRec);
+				transition1.setByX(newPos1.getMinX() - iRec.getX());
+				//transition1.setByY(newPos1.getMinY() - iRec.getY());
+				transition1.setCycleCount(cycleCount);
+				transition1.setAutoReverse(false);
+				transition1.setOnFinished(event1 -> {
+					iRec.setX(newPos1.getMinX());
+					iRec.setY(newPos1.getMinY());
+					iRec.setWidth(newPos1.getWidth());
+					iRec.setHeight(newPos1.getHeight());
+				});
+				transitions[0] = transition1;
+
+				Rectangle2D newPos = calculateElementPosition(i, true, 0);
+				TranslateTransition transition = new TranslateTransition(stepDuration, jRec);
+				transition.setByX(newPos.getMinX() - jRec.getX());
+				//transition.setByY(newPos.getMinY() - jRec.getY());
+				transition.setCycleCount(cycleCount);
+				transition.setAutoReverse(false);
+				transition.setOnFinished(event -> {
+					jRec.setX(newPos.getMinX());
+					jRec.setY(newPos.getMinY());
+					jRec.setWidth(newPos.getWidth());
+					jRec.setHeight(newPos.getHeight());
+				});
+				transitions[1] = transition;
 
 				transitions[0].play();
 				transitions[1].play();
@@ -196,22 +226,6 @@ public class JavaFXApp extends Application {
 				} catch(InterruptedException e) {
 					e.printStackTrace();
 				}
-			}
-
-			private void createTransition(int i, Rectangle jRec, Transition[] transitions, int i2) {
-				Rectangle2D newPos = calculateElementPosition(i);
-				TranslateTransition transition = new TranslateTransition(stepDuration, jRec);
-				transition.setByX(newPos.getMinX() - jRec.getX());
-				transition.setByY(newPos.getMinY() - jRec.getY());
-				transition.setCycleCount(cycleCount);
-				transition.setAutoReverse(false);
-				transition.setOnFinished(event -> {
-					jRec.setX(newPos.getMinX());
-					jRec.setY(newPos.getMinY());
-					jRec.setWidth(newPos.getWidth());
-					jRec.setHeight(newPos.getHeight());
-				});
-				transitions[i2] = transition;
 			}
 
 			@Override
