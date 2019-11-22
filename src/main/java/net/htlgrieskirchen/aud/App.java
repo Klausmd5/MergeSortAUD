@@ -3,7 +3,6 @@ package net.htlgrieskirchen.aud;
 import net.htlgrieskirchen.aud.insertionsort.InsertionSort;
 import net.htlgrieskirchen.aud.mergesort.Mergesort;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class App {
@@ -21,7 +20,7 @@ public class App {
         System.out.println("---- Merge Sort ----");
 
         Array<Integer> arr2 = new Array<>(ints.clone());
-        Mergesort.sort(arr2);
+        Mergesort.sort2(arr2);
         Integer[] sorted2 = arr2.getArray();
 
         print(sorted2, ints);
