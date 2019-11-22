@@ -10,11 +10,10 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -24,6 +23,7 @@ import javafx.util.Duration;
 import javafx.util.Pair;
 import net.htlgrieskirchen.aud.IArray;
 import net.htlgrieskirchen.aud.insertionsort.InsertionSort;
+import org.w3c.dom.css.Rect;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -165,6 +165,17 @@ public class JavaFXApp extends Application {
 			double xOffset = (float) ((float) width / number * i + elementWidth * 0.5);
 			double yOffset = (height - elementHeight);
 			return new Rectangle2D(xOffset, yOffset, elementWidth, elementHeight);
+		}
+
+		public void swapRectangles(int i, int j) {
+			Rectangle r1 = rectangles.get(i).getKey();
+			Rectangle r2 = rectangles.get(j).getKey();
+			Rectangle temp = r1;
+
+			r1.setX(r2.getX());
+			r1.setY(r2.getY());
+			r2.setX(temp.getX());
+			r2.setY(temp.getY());
 		}
 
 		private void drawNew() {
