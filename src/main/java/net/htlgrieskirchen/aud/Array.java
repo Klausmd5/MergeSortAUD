@@ -37,7 +37,7 @@ public class Array<T extends Comparable<T>> implements IArray<T> {
 
 	@Override
 	public void append(IArray<T> newArray) {
-		array = (T[]) Stream.concat(Arrays.stream(array),Arrays.stream(((Array<T>) newArray).array)).toArray();
+		array = (T[]) Stream.concat(Arrays.stream(array),Arrays.stream(((Array<T>) newArray).array)).toArray(value -> new Comparable[value]);
 	}
 
 	public T[] getArray() {
