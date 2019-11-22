@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Mergesort {
 
     public static <T extends Comparable<T>> Array<Integer> sort(Array<T> a) {
-        
+
         int half = (a.size() /2);
 
         if(a.size() > 2) {
@@ -18,15 +18,9 @@ public class Mergesort {
             first = sort(first);
             sec = sort(sec);
 
-            Array<Integer> sort = new Array<>(new Integer[first.size() + sec.size()]);
-            for(int y = 0; y < first.size(); y++) {
-                sort.add(y,first.get(y));
-            }
-            for(int y = first.size() -1; y < sec.size(); y++) {
-                sort.add(y,sec.get(y));
-            }
+            first.append(sec);
 
-            return sort;
+            return first;
         } else {
             //zusammenbauen
             Integer[] i = (Integer[]) a.getArray();

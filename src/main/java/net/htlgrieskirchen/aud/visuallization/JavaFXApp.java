@@ -221,6 +221,11 @@ public class JavaFXApp extends Application {
 			public IArray<Integer> subArray(int from, int toExclusive) {
 				throw new IllegalStateException("Not yet implemented!");
 			}
+
+			@Override
+			public void append(IArray<Integer> array) {
+				throw new IllegalStateException("Not yet implemented!");
+			}
 		}
 	}
 }
