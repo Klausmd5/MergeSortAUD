@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
@@ -143,17 +144,12 @@ public class JavaFXApp extends Application {
 		}
 
 		public void showFinish() {
-			final Stage dialog = new Stage();
-			dialog.initModality(Modality.NONE);
-			dialog.initOwner(stage);
-			VBox dialogVbox = new VBox(10);
-			dialogVbox.setCenterShape(true);
-			dialogVbox.getChildren().add(new Text("Task failed successfully!"));
-			Scene dialogScene = new Scene(dialogVbox, 300, 150);
-			dialog.setScene(dialogScene);
-			dialog.setTitle("Finished");
-			dialog.centerOnScreen();
-			dialog.show();
+
+			Alert a = new Alert(Alert.AlertType.INFORMATION);
+			a.setTitle("Finished");
+			a.setHeaderText("Info:");
+			a.setContentText("Task failed successfully!");
+			a.showAndWait();
 		}
 
 	}
@@ -234,7 +230,8 @@ public class JavaFXApp extends Application {
 
 				Rectangle2D newPos1 = calculateElementPosition(j, true, 0);
 				TranslateTransition transition1 = new TranslateTransition(stepDuration, iRec);
-				transition1.setByX(newPos1.getMinX() - iRec.getX());
+				//transition1.setByX(newPos1.getMinX() - iRec.getX());
+				transition1.setByX(jRec.getX() - iRec.getX());
 				//transition1.setByY(newPos1.getMinY() - iRec.getY());
 				transition1.setCycleCount(cycleCount);
 				transition1.setAutoReverse(false);
@@ -251,7 +248,8 @@ public class JavaFXApp extends Application {
 
 				Rectangle2D newPos = calculateElementPosition(i, true, 0);
 				TranslateTransition transition = new TranslateTransition(stepDuration, jRec);
-				transition.setByX(newPos.getMinX() - jRec.getX());
+				//transition.setByX(newPos.getMinX() - jRec.getX());
+				transition.setByX(iRec.getX() - jRec.getX());
 				//transition.setByY(newPos.getMinY() - jRec.getY());
 				transition.setCycleCount(cycleCount);
 				transition.setAutoReverse(false);
