@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
@@ -36,14 +37,16 @@ public class JavaFXApp extends Application {
 
 	private Stage stage;
 	private Scene menuScene;
+	private String title = "AUD Mergesort";
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setScene(new MainMenuScene() {{
 			JavaFXApp.this.menuScene = this;
 		}});
+		primaryStage.setTitle(title);
 		primaryStage.show();
-
+		primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("MergesortIcon.png")));
 		stage = primaryStage;
 	}
 
@@ -65,7 +68,6 @@ public class JavaFXApp extends Application {
 		private MainMenuScene() {
 			super(new BorderPane(), 400, 300);
 			root = (BorderPane) getRoot();
-
 			root.setPadding(new Insets(10));
 
 			root.setLeft(new Button("Execute MergeSort") {{
@@ -92,7 +94,10 @@ public class JavaFXApp extends Application {
 			root.setPadding(new Insets(10));
 
 			root.setLeft(new Button("<- fuck go back") {{
-				setOnAction(event -> stage.setScene(menuScene));
+				setOnAction(event -> {{
+					stage.setScene(menuScene);
+					stage.setTitle(title);
+				}});
 			}});
 
 			root.setCenter(new ImageView(new Image(MergeSortScene.class.getClassLoader().getResourceAsStream("Mergesort.gif"))){{
@@ -116,7 +121,10 @@ public class JavaFXApp extends Application {
 			root.setPadding(new Insets(10));
 
 			root.setLeft(new Button("<-") {{
-				setOnAction(event -> stage.setScene(menuScene));
+				setOnAction(event -> {{
+					stage.setScene(menuScene);
+					stage.setTitle(title);
+				}});
 			}});
 
 			BorderPane.setAlignment(root.getLeft(), Pos.TOP_LEFT);
@@ -231,10 +239,13 @@ public class JavaFXApp extends Application {
 				transition1.setCycleCount(cycleCount);
 				transition1.setAutoReverse(false);
 				transition1.setOnFinished(event1 -> {
-					iRec.setX(newPos1.getMinX());
-					iRec.setY(newPos1.getMinY());
+					/*iRec.setX(newPos1.getMinX());
+					iRec.setY(newPos1.getMinY());*/
+					iRec.setX(jRec.getX());
+					iRec.setY(jRec.getY());
 					iRec.setWidth(newPos1.getWidth());
 					iRec.setHeight(newPos1.getHeight());
+
 				});
 				transitions[0] = transition1;
 
@@ -245,8 +256,10 @@ public class JavaFXApp extends Application {
 				transition.setCycleCount(cycleCount);
 				transition.setAutoReverse(false);
 				transition.setOnFinished(event -> {
-					jRec.setX(newPos.getMinX());
-					jRec.setY(newPos.getMinY());
+					/*jRec.setX(newPos.getMinX());
+					jRec.setY(newPos.getMinY());*/
+					jRec.setX(iRec.getX());
+					jRec.setY(iRec.getY());
 					jRec.setWidth(newPos.getWidth());
 					jRec.setHeight(newPos.getHeight());
 				});
