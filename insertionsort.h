@@ -1,0 +1,10 @@
+//
+// Created by Fabian on 28.11.2019.
+//
+
+#ifndef AUDMERGESORTBENCHMARK_INSERTIONSORT_H
+#define AUDMERGESORTBENCHMARK_INSERTIONSORT_H
+
+void insertionsort(int* array);
+
+#endif //AUDMERGESORTBENCHMARK_INSERTIONSORT_H
